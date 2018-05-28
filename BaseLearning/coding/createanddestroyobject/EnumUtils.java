@@ -8,7 +8,7 @@ public class EnumUtils {
         PRIMARY,MIDDLE,SENIOR,UNIVERSITY,MASTER,DOCTOR
     }
     public static enum SEX {
-        MAN,WOMAN,NON
+        MAN, WOMAN, NON
     }
 }
 
