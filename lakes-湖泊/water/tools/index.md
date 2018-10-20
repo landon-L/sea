@@ -32,7 +32,6 @@
 
     修改用户名密码
     set password for root@localhost = password('123');
-
     
 
 

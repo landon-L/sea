@@ -24,3 +24,19 @@
 以上两个命令都不会对新增文件起作用。因为新增的文件是还未加到 git 的记录里面的，即属于未被 tracked 的状态，所以撤销修改和回退均对其不影响。我们直接手动删除文件就行了。
 
 ## toroise git 执行  clean up 和 revert 即可，如果有目录删除想回退，则需要手动建立对应文件夹。
+
+## 拉取指定分支代码
+```
+clone码云代码，https不行就尝试ssh
+git clone -b feature/yunsun-app git@gitee.com:egova/accident-police.git
+https方式：
+https://gitee.com/egova/accident-police.git
+码云账号密码：
+chendebao1985@163.com hwits888
+```
+
+## mvn 安装jar到本地仓库
+```
+mvn安装jar包到本地仓库：
+mvn install:install-file -DgroupId=rt -DartifactId=rt -Dversion=1.8 -Dpackaging=jar -Dfile=rt.jar
+```
