@@ -4,7 +4,8 @@ import java.net.SocketPermission;
 
 /**
  * Created by Administrator on 2017/6/21.
- * 遇到过个构造器参数时的考虑采用构建器
+ * 构造器模式
+ * 遇到多个构造器参数时的考虑采用构建器
  * 1.采用重叠构造器模式，适用于参数不是太多，5个左右
  * 2.采用构建器方式，使用参数很多的情况，且参数后期可扩展性高。如下所示：
  *
@@ -48,13 +49,13 @@ public class ImmutablePerson {
             return this;
         }
 
-        //这一招是怎么玩的
+        //这一招是怎么玩的， 666
         public ImmutablePerson build() {
             return new ImmutablePerson(this);
         }
     }
     /**
-     * 此处注意可以直接调用内部类的私有方法
+     * 此处注意可以直接调用内部类的私有方法        
      * 可以在person域对参数进行集体验证，不满足条件抛出参数异常。
      */
     private ImmutablePerson(Builder builder) {
