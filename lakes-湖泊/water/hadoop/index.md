@@ -19,9 +19,11 @@
 
 
 ## 机器参数设置
-
+* 生成ssh   ssh-keygen -t rsa -C "youremail@example.com"
 * 配置ssh 免密登陆  
-    cp ~/.ssh/id_rsa.pub ~/.ssh/authorized_keys  自己登陆自己免密，用于进程重启后免密登陆
+    cp ~/.ssh/id_rsa.pub ~/.ssh/authorized_keys  自己登陆自己免密，用于进程重
+    cat id_rsa.pub >> ~/.ssh/authorized_keys  追加的方式
+    启后免密登陆
 * 修改主机名   
     /etc/sysconfig/network  重启生效（centos 6.4）
     hostname hadoop001  立即生效

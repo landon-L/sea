@@ -35,14 +35,35 @@
 * spark-sql  可以直接用来读取hive数据
 
 ### hive  平滑过渡到 spark sql (1-2即可)
-* park 配置文件下加入hive-site.xml  
+* spark 配置文件下加入hive-site.xml  ,其中包括mysql的一些配置
 * 执行spark-shell  或spark-sql  引入mysql的jar包即可
 * explain extend sql 语句  查看执行计划
 
-### thriftserver  /beeline 使用   --区别与spark-sql 访问hive数据的另一种方式，有监控页，可以查询具体的执行过程。
+spark.sql("show tables).show  来进行sql查询，基于hive，其实就是操作sparkSession 在进行表的查询  
+
+### thriftserver  /beeline 使用   --区别与spark-sql 访问hive数据的另一种方式，有监控页，可以查询具体的执行过程。直接显示结果，有点类似客户端和服务器的关系。同样的hive也有 hiveServer2 beline
 * 启动thriftserver :默认端口10000 ，可以修改
 * 启动beline beeline -u jdbc:hive2://localhost:10000 -n hadoop
+* 区别：spark-shell/spark-sql 相当于启动启动了一个applicatin,多个shell就多个application。但是通过thriftServer的方式，只启动一个，多个客户端之间可以进行数据共享，正式开发较常用。
 
+* 引入hive.jdbc  jar 进行开发
+
+* 使用hive-jdbc 来操作hive表
+```
+Class.forName("org.apache.hive.jdbc.HiveDriver")
+val conn = DriverManager.getConnection("jdbc:hive2://hadoop001:14000", "hadoop","")
+val pstmt = conn.prepareStatement("select empno,ename,sal from emp")
+val rs = pstmt.executeQuery()
+while(rs.next()){
+    println("" + rs.getInt("empno")
+    "" + rs.getString("ename")
+    "" + rs.getDouble("sal))
+
+}
+
+这段代码和spark没有任何关联，完全是使用scala来操作hive
+```
+ 
 ### DataFrame 和RDD对比
 * DataFrame灵活性更高，针对表进行操作
 * RDD java/scala  ===> jvm   python ====>python runtime

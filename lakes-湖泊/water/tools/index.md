@@ -43,4 +43,42 @@
     考虑安全性，可以设置密码
     # requirepass 123456  打开即可
 
-    
+
+## navicate premium 12 破解方法
+[navicate 破解方法](https://blog.csdn.net/qq_38698632/article/details/80577938)
+
+
+## ubuntu 下安装chrome的方法
+> 下载 wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+> 安装 sudo dpkg -i google-chrome-stable_current_amd64.deb 
+
+## 解决ubuntu 中sublime3，无法使用中文输入法的问题
+[参考这个](https://github.com/lyfeyaj/sublime-text-imfix)
+> sublime3 激活码，可用
+```
+----- BEGIN LICENSE -----
+sgbteam
+Single User License
+EA7E-1153259
+8891CBB9 F1513E4F 1A3405C1 A865D53F
+115F202E 7B91AB2D 0D2A40ED 352B269B
+76E84F0B CD69BFC7 59F2DFEF E267328F
+215652A3 E88F9D8F 4C38E3BA 5B2DAAE4
+969624E7 DC9CD4D5 717FB40C 1B9738CF
+20B3C4F1 E917B5B3 87C38D9C ACCE7DD8
+5F7EF854 86B9743C FADC04AA FB0DA5C0
+F913BE58 42FEA319 F954EFDD AE881E0B
+------ END LICENSE ------
+```
+
+## ubuntu中无法挂在ntfs分区的问题
+> sudo ntfsfix /dev/sda3    sda3 根据情况来替换
+
+
+## ubuntu 下安装网易云音乐
+```
+https://blog.csdn.net/sinat_33718563/article/details/80209274
+```
+
+
+

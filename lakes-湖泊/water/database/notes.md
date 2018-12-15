@@ -75,29 +75,28 @@
 > 去除掉多余的空格   UPDATE com_person SET  id = REPLACE(id, ' ', '') ,personno = replace(personno, ' ', '')
 
 
+## sql语句直接合并一列数据
+select name, a.cnt from student left join 
+(select count(*) as cnt from student)a
+on 1=1
 
-## 乐观锁和悲观锁
-> 悲观锁：假定会发生并发冲突，屏蔽一切可能违反数据完整性的操作。[1]      悲观锁假定其他用户企图访问或者改变你正在访问、更改的对象的概率是很高的，因此在悲观锁的环境中，在你开始改变此对象之前就将该对象锁住，并且直到你提交了所作的更改之后才释放锁。悲观的缺陷是不论是页锁还是行锁，加锁的时间可能会很长，这样可能会长时间的限制其他用户的访问，也就是说悲观锁的并发访问性不好。
+## 升级mysql5.5，5.6.5.7  ---> 8.0，需要修改如下配置
+```
+多了个cj
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+这里必须设置时区，或者服务端设置默认的时区信息
+spring.datasource.url=jdbc:mysql://127.0.0.1:3306/iip?serverTimezone=GMT%2B8
 
-> 乐观锁：假设不会发生并发冲突，只在提交操作时检查是否违反数据完整性。[1] 乐观锁不能解决脏读的问题。    乐观锁则认为其他用户企图改变你正在更改的对象的概率是很小的，因此乐观锁直到你准备提交所作的更改时才将对象锁住，当你读取以及改变该对象时并不加锁。可见乐观锁加锁的时间要比悲观锁短，乐观锁可以用较大的锁粒度获得较好的并发访问性能。但是如果第二个用户恰好在第一个用户提交更改之前读取了该对象，那么当他完成了自己的更改进行提交时，数据库就会发现该对象已经变化了，这样，第二个用户不得不重新读取该对象并作出更改。这说明在乐观锁环境中，会增加并发用户读取对象的次数。
-> interbase和大多数关系数据库一样，采用的是乐观锁，而且读锁是共享的，写锁是排他的。可以在一个读锁上再放置读锁，但不能再放置写锁；你不能在写锁上再放置任何锁。锁是目前解决多用户并发访问的有效手段。  
-乐观锁和悲观锁主要应对，丢失更新和脏读的问题。、
+同时引用的jar，也需要升级到8.0系列
+```
 
-如何解决脏读的问题呢？
-a用户读取temp值为8，加锁。
-b用户读取temp值为8，加锁。
-a释放锁，b释放锁，然后b修改数据库中的值。此时a读取的temp仍然为8
+## mysql 下分组求最大
+```
+select t.*,.*,g.cnt frt from t_cmm_notice t LEFT JOIN 
+(select ntc_typ,count(*) cnt, max(tm_smp) tm_smp from t_cmm_notice group by ntc_typ) g 
+on on t.tm_smp_smp =  = g.tm_smp_smp where re g.ntc_typ_typ =  = t.ntc_typ_typ
+```
+> mysql 中还有一个函数叫做group_concat,可以做组内排序, 当作一个字段输出。否则顺序不保证, 拿到的就不一定是第一个了。配合使用subString_index 函数进行切分，就可以达到取固定字段的目的。
 
-只能保证加锁期间数据的正确性？？？  a在更新数据库时会检查数据的版本，如果过时则重新获取数据。
-
-> 乐观锁应用
-1. 使用自增长的整数表示数据版本号。更新时检查版本号是否一致，比如数据库中数据版本为6，更新提交时version=6+1,使用该version值(=7)与数据库version+1(=7)作比较，如果相等，则可以更新，如果不等则有可能其他程序已更新该记录，所以返回错误。
-
-2. 使用时间戳来实现.
-
-注：对于以上两种方式,Hibernate自带实现方式：在使用乐观锁的字段前加annotation: @Version, Hibernate在更新时自动校验该字段。
-
-> 悲观锁应用
-需要使用数据库的锁机制，比如SQL SERVER 的TABLOCKX（排它表锁） 此选项被选中时，SQL  Server  将在整个表上置排它锁直至该命令或事务结束。这将防止其他进程读取或修改表中的数据。
-
-总结：在实际生产环境里边,如果并发量不大且不允许脏读，可以使用悲观锁解决并发问题；但如果系统的并发非常大的话,悲观锁定会带来非常大的性能问题,所以我们就要选择乐观锁定的方法.
+>  尽量设置严格模式，否则聚合得到的字段是随机的。 [参考这里](https://www.cnblogs.com/anstoner/p/6414440.html)
+set @@global.sql_mode = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION'
