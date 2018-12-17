@@ -40,3 +40,24 @@ chendebao1985@163.com hwits888
 mvn安装jar包到本地仓库：
 mvn install:install-file -DgroupId=rt -DartifactId=rt -Dversion=1.8 -Dpackaging=jar -Dfile=rt.jar
 ```
+
+
+## git 配置免密登录
+    本地生成ssh，添加到github 网站中的ssh-key中，表明服务器接受这台机器的请求
+    git config --global user.name "xiayule"
+    git config --global user.email "1412840154@qq.com"
+
+    添加公钥后执行如下命令，检测是否可以正常登录到github
+    ssh -T git@github.com
+    如果报一下错误：
+    sign_and_send_pubkey: signing failed: agent refused operation
+
+    这个时候我们只要执行下
+    eval "$(ssh-agent -s)"
+    ssh-add
+
+    此时可以正常使用git，但是还不能免密登录。继续如下操作
+    vs code中需要制定git.path的路径  ubuntu 系统默认为 /usr/bin,可以通过 whereis git 来查看该路径
+     git config --global credential.helper store
+
+    git config --list 查看所有配置
