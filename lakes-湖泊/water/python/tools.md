@@ -39,3 +39,61 @@ activate py3k
 这时会显示python的版本信息，ipython的版本信息，并启动·交互性命令窗口。
 
 ```
+
+
+## cond 使用命令
+
+> 查看虚拟环境  conda info -e
+
+> 激活虚拟环境  source activate snowflakes 
+
+> 退出当前激活的环境  source deactivate
+
+> 删除环境  conda env remove -n snowflakes
+
+> 拷贝环境  conda create --clone snowflakes --name snowCopy
+
+> 修改conda 数据源
+conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/
+conda config --set show_channel_urls yes
+
+
+## pip 安装软件,使用国内镜像
+```
+
+
+清华：https://pypi.tuna.tsinghua.edu.cn/simple
+
+阿里云：http://mirrors.aliyun.com/pypi/simple/
+
+中国科技大学 https://pypi.mirrors.ustc.edu.cn/simple/
+
+华中理工大学：http://pypi.hustunique.com/
+
+山东理工大学：http://pypi.sdutlinux.org/ 
+
+豆瓣：http://pypi.douban.com/simple/
+
+pip 命令格式：
+
+pip install -i https://pypi.tuna.tsinghua.edu.cn/simple tensorflow=2.0.0-beta0
+
+
+设为默认:
+
+修改 ~/.config/pip/pip.conf  (没有就创建一个)
+ 
+
+    mkdir ~/.pip
+    vim .pip/pip.conf
+
+修改 index-url至tuna，例如
+
+    [global]
+    index-url = https://pypi.tuna.tsinghua.edu.cn/simple
+    trusted-host = pypi.tuna.tsinghua.edu.cn
+
+
+
+```
+  

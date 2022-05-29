@@ -1,5 +1,9 @@
 # 这里记录数据库开发过程中遇到的一些问题，及总结
 
+## linux 下启动mysql 服务
+* service mysql start
+
+
 ## mysqlserver 8.0 安装步骤，解压包安装
 * 配置mysql 环境变量  /xxx/bin
 * mysqld --install

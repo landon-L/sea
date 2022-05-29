@@ -92,3 +92,71 @@ https://help.ubuntu.com/community/Partitioning/Home/Moving 英文版
 将/home目录改名为/old_home
 修改fstab将新的分区挂载到/home
 删除旧的/old_home目录
+
+
+
+## 查看当前目录下文件的空间占用率
+
+du -sh ./*
+
+## 查看系统个分区的磁盘使用情况
+df -h 
+
+## 清华源 添加方法
+```
+https://mirrors.cnnic.cn/help/ubuntu/  查询最新的镜像地址
+
+/etc/apt/sources.list 添加如下 、
+
+deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic main restricted universe multiverse
+# deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic main restricted universe multiverse
+deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic-updates main restricted universe multiverse
+# deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic-updates main restricted universe multiverse
+deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic-backports main restricted universe multiverse
+# deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic-backports main restricted universe multiverse
+deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic-security main restricted universe multiverse
+# deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic-security main restricted universe multiverse
+
+出现如下问题：由于没有公钥，无法验证下列签名： NO_PUBKEY 3B4FE6ACC0B21F32 NO_PUBKEY 871920D1991BC93C
+
+执行：apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 3B4FE6ACC0B21F32 871920D1991BC93C   后两位替换为对应的  key 即可
+
+
+再执行 apt-get update 即可
+
+
+
+```
+
+## 命令行挂在vmware-tools 
+```
+参考链接：https://blog.csdn.net/sainazuoan1/article/details/105516931
+
+挂在点在 /dev/cdrom
+通过命令挂在  mount -t iso9660 /dev/cdrom /mnt/cdrom  然后在 在 /mnt/cdrom 下拷贝文件即可
+再执行卸载命令  unmount /dev/cdrom 
+
+```
+
+## centos7 配置网络
+```
+/etc/sysconfig/network-scripts/ifcfg-xxx  设置如下内容：
+
+BOOTPROTO="static" # 使用静态IP地址，默认为dhcp IPADDR="19.37.33.66" # 设置的静态IP地址
+NETMASK="255.255.255.0" # 子网掩码 
+GATEWAY="19.37.33.1" # 网关地址 
+DNS1="192.168.241.2" # DNS服务器（此设置没有用到，所以我的里面没有添加）
+
+ONBOOT=yes  #设置网卡启动方式为 开机启动 并且可以通过系统服务管理器 systemctl 控制网卡
+
+
+
+网络配置四大天王：
+cat /etc/sysconfig/network-scripts/ifcfg-eth0
+
+cat /etc/sysconfig/network
+
+cat /etc/resolv.conf 
+
+cat /etc/NetworkManager/NetworkManager
+```
